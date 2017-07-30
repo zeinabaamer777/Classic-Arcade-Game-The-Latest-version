@@ -20,10 +20,6 @@ Enemy.prototype.update = function(dt) {
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
-// Create random numbers for speed to easily update enemy movs
-// Now write your own Player class
 var Player = function(x, y) {
     this.sprite = "images/char-boy.png";
     this.x = x;
@@ -35,14 +31,12 @@ var Player = function(x, y) {
 // Place all enemy objects in an array called allEnemies
 var allEnemies = [];
 // Place the Player object in a variable called Player
-//var Player = new Player();
 var player = new Player(200, 300);
-var enemy = new Enemy(-100, Math.random() * 150 + 60, Math.random() * 400);
-allEnemies.push(enemy);
+allEnemies = [new Enemy(1 * 5 - 0, Math.random() * 150 + 60, Math.random() * 100 + (1 * 20))];
 // this function to increase the enemy number
 Enemy.prototype.increaseEnemy = function(num) {
     // remove all previous enemies on canvas
-    allEnemies.length = 0;
+    allEnemies = [];
     // load new set of enemies
     for (var i = 0; i <= num; i++) {
         var enemy = new Enemy(i * 5 - 0, Math.random() * 150 + 60, Math.random() * 100 + (i * 20));
@@ -57,7 +51,6 @@ Enemy.prototype.checkCollisions = function() {
             player.x = 200;
             player.y = 300;
             player.score = 0;
-            player.lives--;
             Enemy.prototype.increaseEnemy(player.score);
         }
         // check if the player reach to the top of canvas and winning the game
@@ -75,22 +68,22 @@ Enemy.prototype.checkCollisions = function() {
 Player.prototype.update = function(x, y) {
     if (this.score === 5) {
         this.GameWin();
-        this.resetPosition();
     }
 };
 //default Player position for game
 //reset Player positions
-Player.prototype.resetPosition = function() {
+Player.prototype.resetGame = function() {
     this.xPos = 100;
     this.yPos = 300;
     this.score = 0;
+    allEnemies = [new Enemy(1 * 5 - 0, Math.random() * 150 + 60, Math.random() * 100 + (1 * 20))];
 };
 // checks if Player ended his lives ornot
 Player.prototype.GameWin = function() {
     if (this.score === 5) {
         alert('Congrats You Win' + " " + 'Your SCORE Is' + " " + this.score + " " + "Points");
-        this.resetPosition();
-
+        this.resetGame();
+        // Enemy.prototype.increaseEnemy(0);
     }
 };
 // draw player on canvas
