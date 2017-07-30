@@ -16,22 +16,16 @@ var Engine = (function(global) {
         ctx = canvas.getContext('2d'),
         lastTime;
 		Score = doc.createElement('div');
-		Life = doc.createElement('div');
+		// Life = doc.createElement('div');
 		
     canvas.width = 505;
     canvas.height = 606;
     doc.body.appendChild(canvas);
 	doc.body.appendChild(Score);
-	doc.body.appendChild(Life);
 	Scorecontent = doc.createTextNode('Score = ');
 	Scoreupdate = doc.createTextNode(player.score);
 	Score.appendChild(Scorecontent);
 	Score.appendChild(Scoreupdate);
-	Lifecontent = doc.createTextNode('Life = ');
-	Lifeupdate = doc.createTextNode(player.lives);
-	Life.appendChild(Lifecontent);
-	Life.appendChild(Lifeupdate);
-
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
      */
@@ -51,7 +45,6 @@ var Engine = (function(global) {
         update(dt);
         render();
 		Scoreupdate.nodeValue = player.score;
-		Lifeupdate.nodeValue = player.lives;
         /* Set our lastTime variable which is used to determine the time delta
          * for the next time this function is called.
          */
